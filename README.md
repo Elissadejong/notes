@@ -26,3 +26,14 @@ unscaled_X_train = loaded_transformer.inverse_transform(X_train_)
 
 # it makes sense to scale the target variable as well
 unscaled_X_train[0][0]
+
+# API WRAPPER
+def get_all_song_ids_from_artists(artists_ids, show = True):
+    final_track_ids = []
+    for artist in artists_ids:
+        album_ids = get_album_ids_from_artist(artist)
+        track_ids = get_track_ids_from_albums(album_ids)
+        final_track_ids.append(track_ids)
+        if show:
+            print(sp.artist(artist)["name"], ":", len(track_ids))
+    return [i for j in final_track_ids for i in j]
